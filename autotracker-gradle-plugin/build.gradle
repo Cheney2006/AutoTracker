@@ -1,0 +1,29 @@
+// https://www.jianshu.com/p/724d1abc61a2
+plugins {
+    id 'java-library'
+    id 'kotlin'
+    id 'java-gradle-plugin'
+}
+apply from: 'upload.gradle'
+
+println("【配置 autotracker gradle plugin project】")
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+
+gradlePlugin {
+    plugins{
+        trackerPlugin{
+            id = 'com.cheney.autoTracker'
+            implementationClass = 'com.cheney.plugin.autotracker.AutoTrackerPlugin'
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+

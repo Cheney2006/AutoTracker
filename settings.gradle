@@ -1,0 +1,38 @@
+include ':autotracker-gradle-plugin'
+include ':app'
+rootProject.name = "AutoTracker"
+
+gradle.addBuildListener(new BuildListener() {
+    @Override
+    void buildStarted(Gradle gradle) {
+        println("【开始构建】")
+    }
+
+    @Override
+    void settingsEvaluated(Settings settings) {
+        // 注意：在这里不能访问 var1.gradle.rootProject，因为 Project 还没有初始化
+        println("【settings.gradle 解析完成】")
+    }
+
+    @Override
+    void projectsLoaded(Gradle gradle) {
+        println("【初始化阶段结束】")
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+        println("【配置阶段结束】")
+    }
+
+    @Override
+    void buildFinished(BuildResult buildResult) {
+        println("【构建过程结束】")
+    }
+})
+
+gradle.getTaskGraph().addTaskExecutionGraphListener(new TaskExecutionGraphListener() {
+    @Override
+    void graphPopulated(TaskExecutionGraph taskExecutionGraph) {
+        println("【Task 有向无环图生成】")
+    }
+})
